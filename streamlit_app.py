@@ -86,20 +86,6 @@ with tabs[2]:
 
 # Tab 4: Name, current time, and histogram of daily returns
 with tabs[3]:
-    st.markdown('<div class="flash-banner">Built by Christopher Xuan</div>',
-                unsafe_allow_html=True)
-
-    st.write(f"**Current time:** {datetime.now().strftime('%A, %B %d, %Y  %I:%M:%S %p')}")
-
-    returns_df = df.copy()
-    returns_df["Date"] = pd.to_datetime(returns_df["Date"])
-    returns_df = returns_df.sort_values("Date")
-    returns_df["Daily Return %"] = returns_df["Close"].pct_change() * 100
-
-    st.subheader("Distribution of MSFT Daily Returns")
-    fig, ax = plt.subplots()
-    ax.hist(returns_df["Daily Return %"].dropna(), bins=50, color="red", edgecolor="black")
-    ax.set_xlabel("Daily return (%)")
-    ax.set_ylabel("Number of days")
-    ax.axvline(0, color="black", linestyle="--")
-    st.pyplot(fig)
+    st.subheader("Built by Christopher Xuan")
+    st.write("Welcome to my 4th tab!")
+    st.area_chart(df["Close"])
