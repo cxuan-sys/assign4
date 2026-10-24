@@ -28,5 +28,20 @@ with tabs[2]:
 
 # Tab 4: Volume Chart
 with tabs[3]:
-    st.subheader(f"Something New")
-    st.bar_chart(df['Volume'])
+    st.markdown('<div class="flash-banner">Built by YOUR NAME HERE</div>',
+                unsafe_allow_html=True)
+
+    st.write(f"**Current time:** {datetime.now().strftime('%A, %B %d, %Y  %I:%M:%S %p')}")
+
+    df = pd.read_csv("msft.csv")
+    df["Date"] = pd.to_datetime(df["Date"])
+    df = df.sort_values("Date")
+    df["Daily Return %"] = df["Close"].pct_change() * 100
+
+    st.subheader("Distribution of MSFT Daily Returns")
+    fig, ax = plt.subplots()
+    ax.hist(df["Daily Return %"].dropna(), bins=50, color="red", edgecolor="black")
+    ax.set_xlabel("Daily return (%)")
+    ax.set_ylabel("Number of days")
+    ax.axvline(0, color="black", linestyle="--")
+    st.pyplot(fig)
